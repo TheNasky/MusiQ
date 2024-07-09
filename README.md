@@ -1,5 +1,3 @@
-# MusiQ
-
 ![MusiQ Logo](./MusiQ.png)
 
 ## Overview
