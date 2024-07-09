@@ -1,28 +1,28 @@
 "use client";
 import Link from "next/link";
-import NavLink from "./Navlink.js";
+import NavLink from "./Navlink.jsx";
 import Image from "next/image.js";
 
 const navLinks = [
    {
       title: "Crear Lista",
-      path: "/movies",
+      path: "/listas",
       dropdownItems: [
          { title: "Dropdown?", path: "/listas/ruta" },
       ],
    },
    {
       title: "Unirse a una lista",
-      path: "/genres",
+      path: "/listas",
       dropdownItems: [
          { title: "Dropdown?", path: "/listas/ruta" },
       ],
    },
    {
       title: "Mi Lista",
-      path: "/shows",
+      path: "/listas",
       dropdownItems: [
-         { title: "otro Dropdown?", path: "/listas/ruta" },
+      { title: "otro Dropdown?", path: "/listas/ruta" },   
       ], 
    },
 ];
@@ -30,7 +30,7 @@ const navLinks = [
 export default function Navbar() {
    return (
       <nav className="lg:fixed w-full lg:bg-[#725EB3] bg-[#725EB3] bg-opacity-100 z-50 lg:bg-opacity-10 lg:backdrop-blur-sm lg:mb-4">
-         <div className="flex flex-wrap lg:justify-between justify-center pl-22 mx-auto p-4 lg:px-24 pt-0 pb-0 sm:pb-0 lg:bg-[#121212] lg:bg-opacity-[0.1]">
+         <div className="flex flex-wrap lg:justify-between justify-center pl-22 mx-auto p-4 lg:px-24 pt-0 pb-0 sm:pb-0 lg:bg-[#121212] lg:bg-opacity-[0.35]">
             <div className="flex gap-14 items-center">
                <Link href="/" className="max-h-20">
                   <Image src="/MusiQ.png" alt="Logo" width={240} height={100} priority />
