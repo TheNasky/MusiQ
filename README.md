@@ -1,41 +1,33 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MusiQ
 
-## Getting Started
+![MusiQ Logo](./MusiQ.png)
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+MusiQ is a web application designed to streamline the process of requesting songs in environments like gyms, cafes, or any business that plays music. Instead of approaching the manager to request a song, users can simply scan a QR code and make their requests through the app.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **QR Code Integration**: Users can scan a QR code to access the song request interface.
+- **Song Request**: Users can search for and request songs directly through the app.
+- **Queue Management**: Managers can view and manage the song queue easily.
+- **User-Friendly Interface**: Simple and intuitive design for both users and managers.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Technologies
 
-## Learn More
+- **Next.js**: A React framework for building server-side rendered and statically generated web applications.
+- **Tailwind CSS**: A utility-first CSS framework for rapidly building custom user interfaces.
+- **Node.js**: A JavaScript runtime built on Chrome's V8 JavaScript engine.
+- **React**: A JavaScript library for building user interfaces.
 
-To learn more about Next.js, take a look at the following resources:
+## Dependencies
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **next**: The React framework for production.
+- **react**: A JavaScript library for building user interfaces.
+- **react-dom**: Serves as the entry point to the DOM and server renderers for React.
+- **tailwindcss**: A utility-first CSS framework.
+- **axios**: Promise based HTTP client for the browser and node.js.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-=======
-# c19-140-n-node-js
-MusiQ Web app para creación y administración de listas de musica.
->>>>>>> origin/main
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
