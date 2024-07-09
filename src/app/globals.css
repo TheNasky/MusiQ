@@ -2,32 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 8px solid #181818; /* Same color as the dropdown */
+  position: absolute;
+  top: -15px; /* Adjust as needed */
+  left: 18px; /* Center the arrow */
+  transform: translateX(-50%); /* Center the arrow */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.dropdown-container {
+  min-width: 200px; /* Set a minimum width for the dropdown */
+  max-width: max-content; /* Automatically adjust the width based on content */
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.dropdown-item {
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Show overflowing text */
+  text-overflow: ellipsis; /* Clip the overflowing text */
+  max-width: none; /* Remove maximum width */
 }
