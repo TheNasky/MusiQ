@@ -19,7 +19,7 @@ export default function List() {
 
   return (
     <div className='w-4/5 h-full rounded'>
-      <h2 className="text-white">Lista de reproducción</h2>
+      <h2 className="text-white my-2.5">Lista de reproducción</h2>
 
       <ul className="h-full w-full overflow-y-scroll custom-scrollbar">
 

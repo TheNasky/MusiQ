@@ -1,14 +1,20 @@
 import React from 'react'
-import { ShareButton,  SearchButton } from './Buttons'
+import { SearchButton } from './Buttons'
 
 export default function Search() {
   return (
-    <div className='w-4/5 h-auto bg-[#c4b5fd] bg-opacity-[0.5] rounded my-2.5 p-2.5 flex flex-row justify-center'>
-      <input type="text" placeholder='Buscar una canción' className='w-3/6 rounded bg-[#333] text-[#fff] mx-2.5 px-2'/>
+    <div class="relative w-4/5">
+  
+      <input
+        class="input w-full bg-[#c4b5fd] bg-opacity-[0.5] rounded-full px-8 py-3 border-2 border-transparent focus:outline-none placeholder-gray-400"
+        placeholder="Buscar una canción"
+        type="text"
+      />
 
       <SearchButton />
-      <ShareButton />
-
     </div>
+
   )
 }
+
+
