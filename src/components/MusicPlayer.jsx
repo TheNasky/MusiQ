@@ -1,8 +1,8 @@
-'use client'
+'use client';
 import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 
-const CustomAudioPlayer = () => {
+const CustomAudioPlayer = ( { playlist } ) => {
 
   const audioRef = useRef(null);
   const progressRef = useRef(null);
@@ -12,11 +12,7 @@ const CustomAudioPlayer = () => {
   const [duration, setDuration] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const playlist = [
-    { src: 'https://audioplayer.madza.dev/Madza-Chords_of_Life.mp3', title: 'Chords of Life' },
-    { src: 'https://audioplayer.madza.dev/Madza-Late_Night_Drive.mp3', title: 'Late Night Drive' },
-    { src: 'https://audioplayer.madza.dev/Madza-Persistence.mp3', title: 'Persistence' },
-  ];
+  const songlist = playlist;
 
   const togglePlayPause = () => {
     if (isPlaying) {
@@ -28,7 +24,7 @@ const CustomAudioPlayer = () => {
   };
 
   const playNext = () => {
-    if (currentIndex < playlist.length - 1) {
+    if (currentIndex < songlist.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -95,9 +91,8 @@ const CustomAudioPlayer = () => {
   };
 
   return (
-    <div className='w-4/5 h-2/5 bg-[#c4b5fd] bg-opacity-[0.5] p-6 rounded flex flex-row space-x-6 justify-center'>
+    <div className='w-4/5 h-2/5 bg-[#f2f9ff] bg-opacity-[0.7] p-6 rounded flex flex-row space-x-6 justify-center'>
         <div className='w-1/5 bg-[#c4b5fd] rounded relative'>
-            <h2>Playing Now</h2>
             <Image
             src={'/thumbnail.jpg'}
             alt="Image"
@@ -108,53 +103,54 @@ const CustomAudioPlayer = () => {
         </div>
 
         <div  className='w-2/3 rounded grid grid-rows-4 text-black'>
-            <h3>{playlist[currentIndex].title}</h3>
+            <h3>{songlist[currentIndex].title}</h3>
             <p>Madza</p>
 
             <div className="w-full text-center my-2">
-                <audio ref={audioRef} src={playlist[currentIndex].src} />
+              <audio ref={audioRef} src={songlist[currentIndex].src} />
 
-                <div
-                    className="w-full h-2.5 bg-[#e0e0e0] rounded-md cursor-pointer relative"
-                    ref={progressRef}
-                    onClick={handleProgressClick}
-                >
-                    <div className="h-full bg-[#a41464] rounded-md" style={{ width: `${progress}%` }}></div>
-                </div>
-                <div className="flex justify-between">
-                    <span>{formatTime(currentTime)}</span>
-                    <span>{formatTime(duration)}</span>
-                </div>
+              <div
+                className="w-full h-2.5 bg-[#e0e0e0] rounded-md cursor-pointer relative"
+                ref={progressRef}
+                onClick={handleProgressClick}
+              >
+                <div className="h-full bg-[#a41464] rounded-md" style={{ width: `${progress}%` }}></div>
+              </div>
+
+              <div className="flex justify-between">
+                <span className='text-sm'>{formatTime(currentTime)}</span>
 
                 <div className='py-2.5 flex flex-row space-x-6 justify-center'>
 
-                    <button onClick={playPrevious} disabled={currentIndex === 0}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061A1.125 1.125 0 0 1 21 8.689v8.122ZM11.25 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061a1.125 1.125 0 0 1 1.683.977v8.122Z" />
-                        </svg>
-                    </button>
+                  <button onClick={playPrevious} disabled={currentIndex === 0} className="text-[#a41464]">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                    <path d="M9.195 18.44c1.25.714 2.805-.189 2.805-1.629v-2.34l6.945 3.968c1.25.715 2.805-.188 2.805-1.628V8.69c0-1.44-1.555-2.343-2.805-1.628L12 11.029v-2.34c0-1.44-1.555-2.343-2.805-1.628l-7.108 4.061c-1.26.72-1.26 2.536 0 3.256l7.108 4.061Z" />
+                    </svg>
+                  </button>
 
-                    <button onClick={togglePlayPause}>
-                        {!isPlaying ? 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z" />
-                            </svg>
-                            : 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 9v6m-4.5 0V9M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
+                  <button onClick={togglePlayPause} className="text-[#a41464]">
+                      {!isPlaying ? 
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                          <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm14.024-.983a1.125 1.125 0 0 1 0 1.966l-5.603 3.113A1.125 1.125 0 0 1 9 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113Z" clipRule="evenodd" />
+                          </svg>                          
+                          : 
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 9v6m-4.5 0V9M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                          </svg>
 
-                        }
-                    </button>
+                      }
+                  </button>
 
-                    <button onClick={playNext} disabled={currentIndex === playlist.length - 1}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061A1.125 1.125 0 0 1 3 16.811V8.69ZM12.75 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061a1.125 1.125 0 0 1-1.683-.977V8.69Z" />
-                        </svg>
-                    </button>
+                  <button onClick={playNext} disabled={currentIndex === songlist.length - 1} className="text-[#a41464]">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                    <path d="M5.055 7.06C3.805 6.347 2.25 7.25 2.25 8.69v8.122c0 1.44 1.555 2.343 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.343 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256l-7.108-4.061C13.555 6.346 12 7.249 12 8.689v2.34L5.055 7.061Z" />
+                    </svg>
+                  </button>
 
                 </div>
+
+                <span className='text-sm'>{formatTime(duration)}</span>
+              </div>
             </div>    
         </div>
     </div>

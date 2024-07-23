@@ -1,18 +1,28 @@
 import React from 'react'
 import { SearchButton } from './Buttons'
+import SearchList from './SearchList'
 
 export default function Search() {
   return (
-    <div class="relative w-4/5">
+    <section className='w-full h-3/5 flex items-center flex-col'>
+      <div class="relative w-4/5">
   
-      <input
-        class="input w-full bg-[#c4b5fd] bg-opacity-[0.5] rounded-full px-8 py-3 border-2 border-transparent focus:outline-none placeholder-gray-400"
-        placeholder="Buscar una canción"
-        type="text"
-      />
+        <input
+          class="input w-full bg-[#f2f9ff] bg-opacity-[0.7] rounded-full px-8 py-2 border-2 border-transparent focus:outline-none placeholder-gray-700"
+          placeholder="Buscar una canción"
+          type="text"
+        />
 
-      <SearchButton />
-    </div>
+        <button className="absolute right-2 -translate-y-1/2 top-1/2 p-1 text-[#a41464]">
+          <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="search" className="w-5 h-5">
+            <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9" stroke="currentColor" strokeWidth="1.333" strokeLinecap="round" strokeLinejoin="round"></path>
+          </svg>
+        </button>  
+      </div>
+
+      <SearchList />
+    </section>
+    
 
   )
 }

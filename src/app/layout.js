@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
    title: "MusiQ",
-   description: "MoviQ, Comparte listas de musica online",
+   description: "MusiQ, Comparte listas de musica online",
 };
 
 export default function RootLayout({ children }) {
