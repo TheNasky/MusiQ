@@ -17,13 +17,13 @@ export default function SearchList() {
     }, [])
   
     return (
-        <div className='w-3/4 h-4/5 rounded'>
+        <div className='w-4/5 h-4/5 rounded-b-lg bg-[#6d58a5] bg-opacity-[0.5] text-white'>
 
             <ul className="w-full h-full overflow-y-scroll custom-scrollbar">
 
                 {items.map((item) => (
 
-                <li key={item.id} className="bg-[#f2f9ff] bg-opacity-[0.7] rounded my-2.5 p-2.5 flex flex-row">
+                <li key={item.id} className="rounded-md p-2.5 flex flex-row">
                     <Image
                     src={item.thumbnail}
                     alt="thumbnail"
@@ -33,7 +33,7 @@ export default function SearchList() {
 
                     <p className="basis-3/4 content-center mx-2.5">{item.name}</p>
 
-                    <button className="text-[#a41464] rounded px-3 mx-1">
+                    <button className="rounded px-3 mx-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
@@ -42,7 +42,6 @@ export default function SearchList() {
                 ))}
             
             </ul>
-
         </div>
     )
 }

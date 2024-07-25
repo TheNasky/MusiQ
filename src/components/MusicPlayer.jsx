@@ -91,7 +91,7 @@ const CustomAudioPlayer = ( { playlist } ) => {
   };
 
   return (
-    <div className='w-4/5 h-2/5 bg-[#f2f9ff] bg-opacity-[0.7] p-6 rounded flex flex-row space-x-6 justify-center'>
+    <div className='w-4/5 h-2/5 bg-[#6d58a5] bg-opacity-[0.5] p-4 rounded-md flex flex-row space-x-6 justify-center text-white'>
         <div className='w-1/5 bg-[#c4b5fd] rounded relative'>
             <Image
             src={'/thumbnail.jpg'}
@@ -102,7 +102,7 @@ const CustomAudioPlayer = ( { playlist } ) => {
             />
         </div>
 
-        <div  className='w-2/3 rounded grid grid-rows-4 text-black'>
+        <div  className='w-2/3 rounded grid grid-rows-4'>
             <h3>{songlist[currentIndex].title}</h3>
             <p>Madza</p>
 
@@ -122,13 +122,13 @@ const CustomAudioPlayer = ( { playlist } ) => {
 
                 <div className='py-2.5 flex flex-row space-x-6 justify-center'>
 
-                  <button onClick={playPrevious} disabled={currentIndex === 0} className="text-[#a41464]">
+                  <button onClick={playPrevious} disabled={currentIndex === 0}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
                     <path d="M9.195 18.44c1.25.714 2.805-.189 2.805-1.629v-2.34l6.945 3.968c1.25.715 2.805-.188 2.805-1.628V8.69c0-1.44-1.555-2.343-2.805-1.628L12 11.029v-2.34c0-1.44-1.555-2.343-2.805-1.628l-7.108 4.061c-1.26.72-1.26 2.536 0 3.256l7.108 4.061Z" />
                     </svg>
                   </button>
 
-                  <button onClick={togglePlayPause} className="text-[#a41464]">
+                  <button onClick={togglePlayPause}>
                       {!isPlaying ? 
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
                           <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm14.024-.983a1.125 1.125 0 0 1 0 1.966l-5.603 3.113A1.125 1.125 0 0 1 9 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113Z" clipRule="evenodd" />
@@ -141,7 +141,7 @@ const CustomAudioPlayer = ( { playlist } ) => {
                       }
                   </button>
 
-                  <button onClick={playNext} disabled={currentIndex === songlist.length - 1} className="text-[#a41464]">
+                  <button onClick={playNext} disabled={currentIndex === songlist.length - 1}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
                     <path d="M5.055 7.06C3.805 6.347 2.25 7.25 2.25 8.69v8.122c0 1.44 1.555 2.343 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.343 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256l-7.108-4.061C13.555 6.346 12 7.249 12 8.689v2.34L5.055 7.061Z" />
                     </svg>
