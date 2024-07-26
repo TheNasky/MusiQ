@@ -10,11 +10,3 @@ export function Playlist() {
     playlist
   ) 
 }
-
-export function DeleteSong(id) {
-  playlist.splice(id - 1, 1);
-
-  return(
-    playlist
-  )
-}

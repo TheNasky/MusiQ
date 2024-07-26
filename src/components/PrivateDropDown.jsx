@@ -38,7 +38,7 @@ export default function PrivateDropDown() {
       {isOpen && (
         <div className="origin-top-right absolute right-0 mt-2 w-32 rounded-tl-lg rounded-b-lg bg-white py-1.5 shadow-lg">
           {options.map((option, index) => (
-            <label key={index} className="flex justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full cursor-pointer">
+            <label key={index} className="flex justify-between px-4 py-2 text-sm text-[#2f2f2f] hover:bg-gray-100 w-full cursor-pointer">
               {option}
               <input
                 type="checkbox"

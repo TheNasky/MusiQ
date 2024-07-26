@@ -12,8 +12,8 @@ export default function ListPage() {
 
   return (  
     <main>
-      <Background />
-      <div className="absolute top-0 pt-[25vh] lg:pt-[15vh] h-full bg-[#121212] bg-opacity-[0.5] w-full">
+      <Background src={ `/bgMylist.jpg` }/>
+      <div className="absolute top-0 pt-[25vh] lg:pt-[15vh] h-full w-full">
         <div className="w-full h-4/5 flex items-center justify-center flex-row">
           <div className="w-2/4 h-full flex items-center flex-col z-10">
           
@@ -30,8 +30,8 @@ export default function ListPage() {
         </div>
       </div>
 
-      <div className="block absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#252134] bg-[#252134] bg-opacity-20 -z-1" />
-      <div className="bg-[#252134] bg-opacity-100 flex justify-center items-center"></div>
+      {/* <div className="block absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#252134] bg-[#252134] bg-opacity-20 -z-1" />
+      <div className="bg-[#252134] bg-opacity-100 flex justify-center items-center"></div> */}
     </main>
   )
 }

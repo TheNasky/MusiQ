@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { LikeIcon } from "./icons";
 
 export default function List( { playlist } ) {
 
@@ -13,16 +14,16 @@ export default function List( { playlist } ) {
       return newItems;
     });
   };
-
+  
   return (
     <div className='w-4/5 h-full rounded text-white '>
-      <h2 className="my-2.5">Lista de reproducción</h2>
+      <h2 className="my-2">Lista de reproducción</h2>
 
       <ul className="h-full w-full overflow-y-scroll custom-scrollbar">
 
         {items.map((item) => (
 
-          <li key={item.id} className="bg-[#6d58a5] bg-opacity-[0.5] rounded my-2.5 p-2.5 flex flex-row">           
+          <li key={item.id} className="bg-[#6d58a5] bg-opacity-[0.7] rounded my-2.5 p-2.5 flex flex-row">           
 
             <Image
               src={item.thumbnail}

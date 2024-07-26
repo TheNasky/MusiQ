@@ -14,12 +14,10 @@ const navLinks = [
    },
 ];
 
-
-
 export default function Navbar() {
 
    return (
-      <nav className="lg:fixed w-full bg-[#725EB3] bg-opacity-100 z-50 lg:bg-opacity-10 lg:backdrop-blur-sm lg:mb-4">
+      <nav className="lg:fixed w-full bg-[#725EB3] bg-opacity-50 z-50 lg:bg-opacity-10 lg:backdrop-blur-sm lg:mb-4">
          <div className="flex flex-wrap items-center justify-between pl-4 mx-auto p-4 lg:px-24 pt-0 pb-0 sm:pb-0 lg:bg-[#121212] lg:bg-opacity-[0.35]">
             
                <Link href="/" className="max-h-20 flex-shrink-0">
