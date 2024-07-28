@@ -101,8 +101,13 @@ const CustomAudioPlayer = ( { playlist } ) => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  if (!playlist.songs || playlist.songs.length === 0) {
+    return <div className="text-white">No hay canciones cargadas.</div>;
+  }
+
   return (
     <div className='w-4/5 h-2/5 bg-[#6d58a5] bg-opacity-[0.7] p-4 rounded-md flex flex-row space-x-6 justify-center text-white'>
+      
       <div className='w-1/5 bg-[#c4b5fd] rounded relative'>
           <Image
           src={'/thumbnail.jpg'}

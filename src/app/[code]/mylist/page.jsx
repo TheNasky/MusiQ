@@ -39,7 +39,7 @@ export default function ListPage() {
     if (codeList) {
       fetchPlaylist();
     }
-  }, []);
+  }, [codeList]);
   
   return (  
     <main>
@@ -47,16 +47,25 @@ export default function ListPage() {
       <div className="absolute top-0 pt-[25vh] lg:pt-[15vh] h-full w-full">
         <div className="w-full h-4/5 flex items-center justify-center flex-row">
           <div className="w-2/4 h-full flex items-center flex-col z-10">
-          
-            <InfoList />
-            <MusicPlayer playlist={ playlist } />
+            {playlist ? (
+              <>
+              <InfoList />
+              <MusicPlayer playlist={ playlist } />
 
-            <h2 className='text-white my-2.5  w-3/4'>Agregar a la lista</h2>
-            <Search />
+              <h2 className='text-white my-2.5  w-3/4'>Agregar a la lista</h2>
+              <Search />
+              </>
+            ) : (
+              <div className="text-white">Cargando...</div>
+            )}
           </div>
 
           <div className="w-2/4 h-full flex items-center z-10">
-            <List playlist={ playlist } />
+            {playlist ? (
+              <List playlist={ playlist } />
+            ) : (
+              <div className="text-white">Cargando...</div>
+            )}
           </div>
         </div>
       </div>
