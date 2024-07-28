@@ -5,7 +5,7 @@ import { LikeIcon } from "./icons";
 
 export default function List( { playlist } ) {
 
-  const [items, setItems] = useState(playlist);
+  const [items, setItems] = useState(playlist.songs);
 
   const updateItems = (id) => {
     setItems((prevItems) => {

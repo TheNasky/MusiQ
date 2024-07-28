@@ -13,7 +13,7 @@ const CustomAudioPlayer = ( { playlist } ) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [volume, setVolume] = useState(1);
 
-  const songlist = playlist;
+  const songlist = playlist.songs;
 
   const togglePlayPause = () => {
     if (isPlaying) {
@@ -115,11 +115,11 @@ const CustomAudioPlayer = ( { playlist } ) => {
 
       <div  className='w-2/3 rounded grid grid-rows-5'>
         <h3>{songlist[currentIndex].title}</h3>
-        <p>Madza</p>
+        <p>{songlist[currentIndex].artist}</p>
 
         <div className="w-full text-center my-2">
 
-          <audio ref={audioRef} src={songlist[currentIndex].src} />
+          <audio ref={audioRef} src={songlist[currentIndex].url} />
 
           <div
             className="w-full h-2.5 bg-[#e0e0e0] rounded-md cursor-pointer relative"
