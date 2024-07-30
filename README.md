@@ -1,31 +1,76 @@
+# MusiQ
+
 ![MusiQ Logo](./MusiQ.png)
 
-## Overview
+MusiQ es una aplicación web diseñada para simplificar el proceso de solicitar canciones en entornos como gimnasios, cafeterías o cualquier negocio que reproduzca música. En lugar de acercarse al gerente para solicitar una canción, los usuarios pueden simplemente escanear un código QR y hacer sus peticiones a través de la aplicación.
 
-MusiQ is a web application designed to streamline the process of requesting songs in environments like gyms, cafes, or any business that plays music. Instead of approaching the manager to request a song, users can simply scan a QR code and make their requests through the app.
+## Características principales
 
-## Features
+- **Integración de código QR**: Los usuarios pueden escanear un código QR para acceder a la interfaz de solicitud de canciones.
+- **Solicitud de canciones**: Los usuarios pueden buscar y solicitar canciones directamente a través de la aplicación.
+- **Gestión de cola**: Los gerentes pueden ver y administrar la cola de canciones fácilmente.
+- **Interfaz amigable**: Diseño simple e intuitivo tanto para usuarios como para gerentes.
 
-- **QR Code Integration**: Users can scan a QR code to access the song request interface.
-- **Song Request**: Users can search for and request songs directly through the app.
-- **Queue Management**: Managers can view and manage the song queue easily.
-- **User-Friendly Interface**: Simple and intuitive design for both users and managers.
+## Tecnologías utilizadas
 
-## Technologies
+- **Next.js**: Un framework de React para construir aplicaciones web renderizadas del lado del servidor y generadas estáticamente.
+- **Tailwind CSS**: Un framework de CSS utilitario para construir rápidamente interfaces de usuario personalizadas.
+- **Node.js**: Un entorno de ejecución de JavaScript construido sobre el motor V8 de Chrome.
+- **React**: Una biblioteca de JavaScript para construir interfaces de usuario.
 
-- **Next.js**: A React framework for building server-side rendered and statically generated web applications.
-- **Tailwind CSS**: A utility-first CSS framework for rapidly building custom user interfaces.
-- **Node.js**: A JavaScript runtime built on Chrome's V8 JavaScript engine.
-- **React**: A JavaScript library for building user interfaces.
+## Dependencias principales
 
-## Dependencies
+- **next**: El framework de React para producción.
+- **react**: Una biblioteca de JavaScript para construir interfaces de usuario.
+- **react-dom**: Sirve como punto de entrada a los renderizadores DOM y servidor para React.
+- **tailwindcss**: Un framework de CSS utilitario.
+- **axios**: Cliente HTTP basado en promesas para el navegador y node.js.
 
-- **next**: The React framework for production.
-- **react**: A JavaScript library for building user interfaces.
-- **react-dom**: Serves as the entry point to the DOM and server renderers for React.
-- **tailwindcss**: A utility-first CSS framework.
-- **axios**: Promise based HTTP client for the browser and node.js.
+## Instalación
 
-## License
+1. Clona este repositorio en tu máquina local.
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+   ```
+   git clone https://github.com/tu-usuario/musiq.git
+   ```
+
+2. Instala las dependencias.
+
+   ```
+   cd musiq
+   npm install
+   ```
+
+3. Inicia el servidor de desarrollo.
+
+   ```
+   npm run dev
+   ```
+
+4. Abre tu navegador web y accede a `http://localhost:3000` para ver la aplicación en funcionamiento.
+
+## Equipo
+
+| Nombre               | Rol            |
+| -------------------- | -------------- |
+| Valentín Ballesteros | Desarrollador  |
+| Micaela Hormazabal   | Desarrolladora |
+| Cristian Ortega      | Desarrollador  |
+| Milagros             | Desarrolladora |
+
+## Contribución
+
+Si deseas contribuir a este proyecto, puedes seguir los siguientes pasos:
+
+1. Realiza un fork de este repositorio en tu propia cuenta.
+2. Crea una rama para tus cambios.
+3. Realiza los cambios y haz commits con descripciones claras.
+4. Envía un pull request a este repositorio con tus cambios.
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para obtener más detalles.
+
+## Contacto
+
+Si tienes alguna pregunta o sugerencia sobre este proyecto, no dudes en ponerte en contacto con nosotros en [correo electrónico](mailto:tu-email@ejemplo.com).
