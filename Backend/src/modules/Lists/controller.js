@@ -3,11 +3,6 @@ import { resSuccess, resFail } from "../../config/utils/response.js";
 import { v4 as uuidv4 } from "uuid";
 import argon2 from "argon2";
 
-
-export const HolaMundo = async (req,res) =>{
-  res.send("Hola!");
-
-}
 // Create a new list
 export const createList = async (req, res) => {
   const { name, adminPassword, isPrivate } = req.body;
@@ -87,7 +82,7 @@ export const deleteSong = async (req, res) => {
       return resFail(res, 403, "Invalid admin password");
     }
 
-    list.songs.id(songId).remove();
+    list.songs.pull({ _id: songId });
     await list.save();
     return resSuccess(res, 200, "Song deleted successfully", { list });
   } catch (error) {

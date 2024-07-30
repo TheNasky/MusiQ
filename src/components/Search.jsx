@@ -1,9 +1,9 @@
 'use client';
-import { useEffect, useState } from 'react'
-import SearchList from './SearchList'
+import { useEffect, useState } from 'react';
+import SearchList from './SearchList';
 import { SearchIcon } from './icons';
 
-export default function Search() {
+export default function Search( { code } ) {
   const [searchTerm, setSearchTerm] = useState('');
   const [songs, setSongs] = useState([]);
   const [filteredSongs, setFilteredSongs] = useState([]);
@@ -45,7 +45,7 @@ export default function Search() {
         </button>  
       </div>
 
-      <SearchList filteredSongs={ filteredSongs }/>
+      <SearchList filteredSongs={ filteredSongs } code={ code }/>
     </section>
   )
 }

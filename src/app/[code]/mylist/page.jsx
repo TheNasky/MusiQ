@@ -1,10 +1,9 @@
 'use client';
-import Background from '@/components/Background'
+import Background from '@/components/Background';
+import Navbar from "@/components/Navbar.jsx";
 import List from '@/components/List';
 import MusicPlayer from '@/components/MusicPlayer';
 import Search from '@/components/Search';
-import React from 'react';
-import { Playlist } from '@/data/ApiData';
 import InfoList from '@/components/InfoList';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -43,30 +42,31 @@ export default function ListPage() {
   
   return (  
     <main>
+      <Navbar />
       <Background src={ `/bgMylist.jpg` }/>
       <div className="absolute top-0 pt-[25vh] lg:pt-[15vh] h-full w-full">
         <div className="w-full h-4/5 flex items-center justify-center flex-row">
-          <div className="w-2/4 h-full flex items-center flex-col z-10">
-            {playlist ? (
-              <>
-              <InfoList />
-              <MusicPlayer playlist={ playlist } />
+          {playlist ? (
+            <>
+              <div className="w-2/4 h-full flex items-center flex-col z-10">
+              
+                <InfoList />
+                <MusicPlayer playlist={ playlist } />
 
-              <h2 className='text-white my-2.5  w-3/4'>Agregar a la lista</h2>
-              <Search />
-              </>
-            ) : (
-              <div className="text-white">Cargando...</div>
-            )}
-          </div>
+                <h2 className='text-white my-2.5  w-3/4'>Agregar a la lista</h2>
+                <Search code = { codeList }/>
 
-          <div className="w-2/4 h-full flex items-center z-10">
-            {playlist ? (
-              <List playlist={ playlist } />
-            ) : (
-              <div className="text-white">Cargando...</div>
-            )}
-          </div>
+              </div>
+
+              <div className="w-2/4 h-full flex items-center z-10">
+                
+                <List playlist={ playlist } />
+                
+              </div>
+            </>
+          ) : (
+            <div className="text-white">Cargando...</div>
+          )}
         </div>
       </div>
 
