@@ -49,7 +49,7 @@ export const joinList = async (req, res) => {
 
 // Add a song to the list
 export const addSong = async (req, res) => {
-  const { code, title, artist, url, addedBy } = req.body;
+  const { code, title, artist, url, thumbnail, addedBy } = req.body;
 
   try {
     const list = await ListModel.findOne({ code });
@@ -58,7 +58,17 @@ export const addSong = async (req, res) => {
     }
 
     const newSong = { title, artist, url, addedBy };
+    if (thumbnail) {
+      newSong.thumbnail = thumbnail;
+    }
+
     list.songs.push(newSong);
+
+    // If there's no current song, set the new song as the current song
+    if (!list.currentSong) {
+      list.currentSong = newSong;
+    }
+
     await list.save();
     
     // Emit the updated playlist to all clients in the room
@@ -66,6 +76,7 @@ export const addSong = async (req, res) => {
     
     return resSuccess(res, 200, "Song added successfully", { list });
   } catch (error) {
+    console.error("Error adding song:", error);
     return resFail(res, 500, "Failed to add song", error.message);
   }
 };
@@ -138,6 +149,42 @@ export const playNextSong = async (req, res) => {
     io.to(code).emit("playlistUpdated", list);
     
     return resSuccess(res, 200, "Current song updated successfully", { list });
+  } catch (error) {
+    return resFail(res, 500, "Failed to update current song", error.message);
+  }
+};
+
+export const playSpecificSong = async (req, res) => {
+  const { code, songId, adminPassword } = req.body;
+
+  try {
+    const list = await ListModel.findOne({ code });
+    if (!list) {
+      return resFail(res, 404, "List not found");
+    }
+
+    const isPasswordValid = await argon2.verify(list.adminPassword, adminPassword);
+    if (!isPasswordValid) {
+      return resFail(res, 403, "Invalid admin password");
+    }
+
+    const songIndex = list.songs.findIndex(song => song._id.toString() === songId);
+    if (songIndex === -1) {
+      return resFail(res, 404, "Song not found in the list");
+    }
+
+    // Remove the song from the list and set it as the current song
+    const [newCurrentSong] = list.songs.splice(songIndex, 1);
+    
+    // Simply replace the current song without adding it back to the list
+    list.currentSong = newCurrentSong;
+    
+    await list.save();
+    
+    // Emit the updated playlist to all clients in the room
+    io.to(code).emit("playlistUpdated", list);
+    
+    return resSuccess(res, 200, "Song set as current and playlist updated", { list });
   } catch (error) {
     return resFail(res, 500, "Failed to update current song", error.message);
   }

@@ -2,8 +2,9 @@ import mongoose from "mongoose";
 
 const songSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  artist: { type: String, required: true },
+  artist: { type: String, default:"Desconocido" },
   url: { type: String, required: true },
+  thumbnail: { type: String, required: false },
   addedBy: { type: String, required: true },
   addedAt: { type: Date, default: Date.now },
 });
@@ -14,7 +15,7 @@ const listSchema = new mongoose.Schema({
   isPrivate: { type: Boolean, default: true },
   code: { type: String, required: true, unique: true },
   songs: [songSchema],
-  currentSong: { type: songSchema, default: null },
+  currentSong: { type: songSchema, default: null, required: false },
   users: [{ type: String }],
   createdAt: { type: Date, default: Date.now },
 });
