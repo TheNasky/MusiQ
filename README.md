@@ -61,7 +61,3 @@ MusiQ es una aplicación web diseñada para simplificar el proceso de solicitar 
 ## Licencia
 
 Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para obtener más detalles.
-
-## Contacto
-
-Si tienes alguna pregunta o sugerencia sobre este proyecto, no dudes en ponerte en contacto con nosotros en [correo electrónico](mailto:tu-email@ejemplo.com).
