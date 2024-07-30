@@ -42,11 +42,11 @@ export default function SearchList( { filteredSongs, code } ) {
   }
     
   return (
-    <div className='w-4/5 h-4/5 rounded-b-lg bg-[#6d58a5] bg-opacity-[0.7] text-white'>
+    <div className='w-5/5 h-4/5 rounded-b-lg text-white'>
       {filteredSongs.length > 0 ? (
         <ul className="w-full h-full overflow-y-scroll custom-scrollbar">
           {filteredSongs.map((item) => (
-            <li key={item.id} className="rounded-md p-2.5 flex flex-row">
+            <li key={item.id} className="rounded-md p-2.5 flex flex-row justify-between">
               <div className="w-12 h-12 relative overflow-hidden rounded">
                 <Image
                   src={item.thumbnail || "/thumbnail.jpg"}

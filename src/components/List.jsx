@@ -67,7 +67,7 @@ export default function List({ playlist }) {
   return (
     <div className='w-4/5 h-full rounded text-white '>
 
-      <h2 className="my-2">Lista de reproducción</h2>
+      <h2 className="my-2">Proximas Canciones</h2>
 
       {items.length > 0 ? 
         <ul className="h-full w-full overflow-y-scroll custom-scrollbar">
@@ -103,7 +103,7 @@ export default function List({ playlist }) {
           ))}
         </ul>
       :
-        <p className="p-2 w-full text-center">No se encontraron canciones</p>
+        <p className="p-2 w-full text-center">No hay canciones</p>
       }
       
     </div>
