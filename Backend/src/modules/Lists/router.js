@@ -1,12 +1,12 @@
 import express from "express";
-import { createList, joinList, addSong, deleteSong, findList } from "./controller.js";
+import { createList, joinList, addSong, deleteSong, getList,playNextSong } from "./controller.js";
 
 const router = express.Router();
 
-router.post("/find", findList);
+router.get("/:code", getList);
 router.post("/create", createList);
 router.post("/join", joinList);
 router.post("/addSong", addSong);
-router.post("/deleteSong", deleteSong);
-
+router.delete("/deleteSong", deleteSong);
+router.post("/playNext", playNextSong);
 export default router;

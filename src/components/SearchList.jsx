@@ -6,7 +6,7 @@ export default function SearchList( { filteredSongs, code } ) {
 
   const addSong = async (song) => {
     try {
-      const response = await fetch('http://localhost:3000/api/list/addSong', {
+      const response = await fetch('http://localhost:3001/api/list/addSong', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -20,13 +20,13 @@ export default function SearchList( { filteredSongs, code } ) {
         }),
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        alert('Song added successfully');
-      } else {
-        console.error('Failed to add song:', data.message);
-        alert('Failed to add song: ' + data.message);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText);
       }
+
+      const data = await response.json();
+      alert('Song added successfully');
     } catch (error) {
       console.error('Error adding song:', error);
       alert('Error adding song: ' + error.message);

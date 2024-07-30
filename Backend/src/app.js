@@ -13,8 +13,35 @@ connectDb();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-app.listen(PORT, () => {
-  console.log("listening on port: " + PORT);
+
+import { Server } from "socket.io";
+import http from "http";
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  }
+});
+
+io.on("connection", (socket) => {
+  console.log("A user connected");
+
+  socket.on("joinRoom", (roomId) => {
+    socket.join(roomId);
+    console.log(`User joined room: ${roomId}`);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
+
+export { io };
+
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 // Middlewares //
@@ -27,7 +54,7 @@ app.use(compression({})); // Enable response compression
 // Cors //
 app.use(
   cors({
-    origin: 'http://localhost:3001', // Allow only these origins to access the resources
+    origin: 'http://localhost:3000', // Allow only these origins to access the resources
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allow these HTTP methods
     credentials: true, // Allow credentials to be included in the requests
   })

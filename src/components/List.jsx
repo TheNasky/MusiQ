@@ -2,9 +2,12 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-export default function List( { playlist } ) {
+export default function List({ playlist }) {
+  const [items, setItems] = useState([]);
 
-  const [items, setItems] = useState(playlist.songs || []);
+  useEffect(() => {
+    setItems(playlist.songs || []);
+  }, [playlist]);
 
   const deleteSong = async (songId) => {
     const adminPassword = prompt("Enter admin password to delete the song:");
@@ -12,22 +15,22 @@ export default function List( { playlist } ) {
     if (!adminPassword) return;
 
     try {
-      const response = await fetch('http://localhost:3000/api/list/deleteSong', {
-        method: 'POST',
+      const response = await fetch('http://localhost:3001/api/list/deleteSong', {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ code: playlist.code, songId, adminPassword }),
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        setItems(items.filter(item => item._id !== songId));
-        alert("Song deleted successfully");
-      } else {
-        console.error('Failed to delete song:', data.message);
-        alert('Failed to delete song: ' + data.message);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText);
       }
+
+      const data = await response.json();
+      setItems(items.filter(item => item._id !== songId));
+      alert("Song deleted successfully");
     } catch (error) {
       console.error('Error deleting song:', error);
       alert('Error deleting song: ' + error.message);
