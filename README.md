@@ -53,19 +53,10 @@ MusiQ es una aplicación web diseñada para simplificar el proceso de solicitar 
 
 | Nombre               | Rol            |
 | -------------------- | -------------- |
-| Valentín Ballesteros | Desarrollador  |
-| Micaela Hormazabal   | Desarrolladora |
-| Cristian Ortega      | Desarrollador  |
-| Milagros             | Desarrolladora |
-
-## Contribución
-
-Si deseas contribuir a este proyecto, puedes seguir los siguientes pasos:
-
-1. Realiza un fork de este repositorio en tu propia cuenta.
-2. Crea una rama para tus cambios.
-3. Realiza los cambios y haz commits con descripciones claras.
-4. Envía un pull request a este repositorio con tus cambios.
+| Valentín Ballesteros | Dev FullStack  |
+| Micaela Hormazabal   | Dev Frontend   |
+| Cristian Ortega      | Dev Frontend   |
+| Milagros             | Diseñadora     |
 
 ## Licencia
 
