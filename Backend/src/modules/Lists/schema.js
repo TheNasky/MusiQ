@@ -18,6 +18,7 @@ const listSchema = new mongoose.Schema({
   currentSong: { type: songSchema, default: null, required: false },
   users: [{ type: String }],
   createdAt: { type: Date, default: Date.now },
+  history: [songSchema], // Add this line
 });
 
 export const ListModel = mongoose.model("List", listSchema);

@@ -33,11 +33,9 @@ export default function SearchList( { filteredSongs, code } ) {
         throw new Error(errorText);
       }
 
-      const data = await response.json();
-      alert('Song added successfully');
+      await response.json();
     } catch (error) {
       console.error('Error adding song:', error);
-      alert('Error adding song: ' + error.message);
     }
   }
     

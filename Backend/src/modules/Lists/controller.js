@@ -70,10 +70,10 @@ export const addSong = async (req, res) => {
     }
 
     await list.save();
-    
+
     // Emit the updated playlist to all clients in the room
     io.to(code).emit("playlistUpdated", list);
-    
+
     return resSuccess(res, 200, "Song added successfully", { list });
   } catch (error) {
     console.error("Error adding song:", error);
@@ -98,10 +98,10 @@ export const deleteSong = async (req, res) => {
 
     list.songs.pull({ _id: songId });
     await list.save();
-    
+
     // Emit the updated playlist to all clients in the room
     io.to(code).emit("playlistUpdated", list);
-    
+
     return resSuccess(res, 200, "Song deleted successfully", { list });
   } catch (error) {
     return resFail(res, 500, "Failed to delete song", error.message);
@@ -109,10 +109,10 @@ export const deleteSong = async (req, res) => {
 };
 
 export const getList = async (req, res) => {
-  const code = req.params.code
-  const username = req.query.username
-  console.log(code)
-  console.log(username)
+  const code = req.params.code;
+  const username = req.query.username;
+  console.log(code);
+  console.log(username);
   try {
     const list = await ListModel.findOne({ code });
     if (!list) {
@@ -128,34 +128,7 @@ export const getList = async (req, res) => {
 };
 
 export const playNextSong = async (req, res) => {
-  const { code, songId } = req.body;
-
-  try {
-    const list = await ListModel.findOne({ code });
-    if (!list) {
-      return resFail(res, 404, "List not found");
-    }
-
-    const song = list.songs.id(songId);
-    if (!song) {
-      return resFail(res, 404, "Song not found");
-    }
-
-    list.currentSong = song;
-    list.songs.pull(songId);
-    await list.save();
-    
-    // Emit the updated playlist to all clients in the room
-    io.to(code).emit("playlistUpdated", list);
-    
-    return resSuccess(res, 200, "Current song updated successfully", { list });
-  } catch (error) {
-    return resFail(res, 500, "Failed to update current song", error.message);
-  }
-};
-
-export const playSpecificSong = async (req, res) => {
-  const { code, songId, adminPassword } = req.body;
+  const { code, adminPassword } = req.body;
 
   try {
     const list = await ListModel.findOne({ code });
@@ -168,16 +141,96 @@ export const playSpecificSong = async (req, res) => {
       return resFail(res, 403, "Invalid admin password");
     }
 
-    const songIndex = list.songs.findIndex(song => song._id.toString() === songId);
-    if (songIndex === -1) {
-      return resFail(res, 404, "Song not found in the list");
+    if (list.currentSong) {
+      list.history.unshift(list.currentSong);
+      list.history = list.history.slice(0, 25);
     }
 
-    // Remove the song from the list and set it as the current song
-    const [newCurrentSong] = list.songs.splice(songIndex, 1);
+    if (list.songs.length > 0) {
+      list.currentSong = list.songs.shift();
+    } else {
+      list.currentSong = null;
+    }
+
+    await list.save();
+
+    return resSuccess(res, 200, "Next song set", { list });
+  } catch (error) {
+    return resFail(res, 500, "Failed to set next song", error.message);
+  }
+};
+
+export const playPreviousSong = async (req, res) => {
+  const { code, adminPassword } = req.body;
+
+  try {
+    const list = await ListModel.findOne({ code });
+    if (!list) {
+      return resFail(res, 404, "List not found");
+    }
+
+    const isPasswordValid = await argon2.verify(list.adminPassword, adminPassword);
+    if (!isPasswordValid) {
+      return resFail(res, 403, "Invalid admin password");
+    }
+
+    if (list.history.length === 0) {
+      return resFail(res, 400, "No previous songs in history");
+    }
+
+    if (list.currentSong) {
+      list.songs.unshift(list.currentSong);
+    }
+
+    list.currentSong = list.history.shift();
+
+    await list.save();
+
+    return resSuccess(res, 200, "Previous song set", { list });
+  } catch (error) {
+    return resFail(res, 500, "Failed to set previous song", error.message);
+  }
+};
+
+export const playSpecificSong = async (req, res) => {
+  const { code, songId, adminPassword, fromHistory } = req.body;
+
+  try {
+    const list = await ListModel.findOne({ code });
+    if (!list) {
+      return resFail(res, 404, "List not found");
+    }
+
+    const isPasswordValid = await argon2.verify(list.adminPassword, adminPassword);
+    if (!isPasswordValid) {
+      return resFail(res, 403, "Invalid admin password");
+    }
+
+    let songToPlay;
+    let songIndex;
+
+    if (fromHistory) {
+      songIndex = list.history.findIndex(song => song._id.toString() === songId);
+      if (songIndex === -1) {
+        return resFail(res, 404, "Song not found in history");
+      }
+      songToPlay = list.history.splice(songIndex, 1)[0];
+    } else {
+      songIndex = list.songs.findIndex(song => song._id.toString() === songId);
+      if (songIndex === -1) {
+        return resFail(res, 404, "Song not found in the list");
+      }
+      songToPlay = list.songs.splice(songIndex, 1)[0];
+    }
+
+    // Add the current song to history if it exists
+    if (list.currentSong) {
+      list.history.unshift(list.currentSong);
+      list.history = list.history.slice(0, 25); // Keep only the latest 25 songs
+    }
     
-    // Simply replace the current song without adding it back to the list
-    list.currentSong = newCurrentSong;
+    // Set the new current song
+    list.currentSong = songToPlay;
     
     await list.save();
     
@@ -187,5 +240,20 @@ export const playSpecificSong = async (req, res) => {
     return resSuccess(res, 200, "Song set as current and playlist updated", { list });
   } catch (error) {
     return resFail(res, 500, "Failed to update current song", error.message);
+  }
+};
+
+export const getHistory = async (req, res) => {
+  const { code } = req.params;
+
+  try {
+    const list = await ListModel.findOne({ code });
+    if (!list) {
+      return resFail(res, 404, "List not found");
+    }
+
+    return resSuccess(res, 200, "History retrieved successfully", { history: list.history });
+  } catch (error) {
+    return resFail(res, 500, "Failed to retrieve history", error.message);
   }
 };

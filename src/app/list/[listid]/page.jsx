@@ -67,10 +67,10 @@ export default function ListPage() {
   };
 
   return (
-    <main>
+    <main className="">
       <Navbar />
       <Background src={`/bgMylist.jpg`} />
-      <div className="absolute top-0 pt-[25vh] lg:pt-[15vh] h-full w-full overflow-hidden">
+      <div className="absolute top-0 pt-[25vh] lg:pt-[15vh] h-full w-full overflow-hidden bg-[#140933] bg-opacity-[0.25]">
         <div className="w-full h-4/5 flex items-center justify-center flex-row">
           {playlist ? (
             <>

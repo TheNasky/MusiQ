@@ -14,7 +14,6 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
 
   useEffect(() => {
     setCurrentSong(playlist.currentSong);
-    console.log("Current song updated:", playlist.currentSong);
   }, [playlist]);
 
   const togglePlayPause = () => {
@@ -24,7 +23,6 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
       } else {
         playerRef.current.playVideo();
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
@@ -37,7 +35,6 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
       try {
         const response = await axios.post("http://localhost:3001/api/list/playNext", {
           code: playlist.code,
-          songId: playlist.songs[0]._id,
           adminPassword,
         });
         if (response.data.success) {
@@ -47,7 +44,28 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
         }
       } catch (error) {
         console.error("Error updating current song:", error);
-        alert("Error playing next song: " + error.message);
+      }
+    }
+  };
+
+  const playPrevious = async () => {
+    if (playlist.history.length > 0) {
+      const adminPassword = prompt("Enter admin password to play previous song:");
+
+      if (!adminPassword) return;
+
+      try {
+        const response = await axios.post("http://localhost:3001/api/list/playPrevious", {
+          code: playlist.code,
+          adminPassword,
+        });
+        if (response.data.success) {
+          onSongChange(response.data.payload.list);
+        } else {
+          throw new Error(response.data.message);
+        }
+      } catch (error) {
+        console.error("Error playing previous song:", error);
       }
     }
   };
@@ -56,16 +74,20 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
     playNext();
   };
 
-  const handleTimeUpdate = (event) => {
-    if (event.data === 1) {
-      // Video is playing
+  const handleStateChange = (event) => {
+    // Update isPlaying based on YouTube player state
+    setIsPlaying(event.data === YouTube.PlayerState.PLAYING);
+
+    if (event.data === YouTube.PlayerState.PLAYING) {
       const updateProgress = () => {
-        const current = playerRef.current.getCurrentTime();
-        const duration = playerRef.current.getDuration();
-        setCurrentTime(current);
-        setDuration(duration);
-        setProgress((current / duration) * 100);
-        requestAnimationFrame(updateProgress);
+        if (playerRef.current) {
+          const current = playerRef.current.getCurrentTime();
+          const duration = playerRef.current.getDuration();
+          setCurrentTime(current);
+          setDuration(duration);
+          setProgress((current / duration) * 100);
+          requestAnimationFrame(updateProgress);
+        }
       };
       updateProgress();
     }
@@ -97,7 +119,7 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
   }
 
   return (
-    <div className="w-4/5 h-2/5 bg-[#6d58a5] bg-opacity-[0.7] p-4 rounded-md flex flex-row space-x-6 justify-center text-white">
+    <div className="w-4/5 h-2/5 bg-[#6d58a5] bg-opacity-[0.7] p-4 rounded-md flex flex-row space-x-6 justify-center text-white mb-4 mt-1.5">
       <div className="w-2/5 bg-[#c4b5fd] rounded relative overflow-hidden">
         <div className="w-full h-0 pb-[80%] relative">
           <Image
@@ -116,7 +138,7 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
 
       <div className="w-2/3 rounded grid grid-rows-5">
       <div className="flex flex-col">
-        <h3 className="text-[2.2rem]">{currentSong.title}</h3>
+        <h3 className="text-[2.2rem]"><div className="line-clamp-2">{currentSong.title}</div></h3>
         <p className="text-[1.2rem] my-1 text-gray-300">{currentSong.artist}</p>
         <div className="w-full text-center my-2">
           <YouTube
@@ -129,7 +151,7 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
               },
             }}
             onEnd={handleSongEnd}
-            onStateChange={handleTimeUpdate}
+            onStateChange={handleStateChange}
             onReady={(event) => {
               playerRef.current = event.target;
             }}
@@ -141,20 +163,26 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
             onClick={handleProgressClick}
           >
             <div
-              className="h-full bg-[#f83a47] rounded-md"
+              className="h-full bg-[#f83a47]" 
               style={{ width: `${progress}%` }}
             ></div>
           </div>
 
           <div className="flex justify-between">
-            <span className="text-sm">{formatTime(currentTime)}</span>
-            <span className="text-sm">{formatTime(duration)}</span>
+            <span className="text-sm p-1">{formatTime(currentTime)}</span>
+            <span className="text-sm p-1">{formatTime(duration)}</span>
           </div>
 
-          <div className="py-2.5 flex flex-row space-x-6 justify-center">
+          <div className="-mt-3 flex flex-row space-x-6 justify-center">
+          <button onClick={playPrevious} className="p-1 rounded-full hover:text-[#f83a47] transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+              <path d="m16 7-7 5 7 5zm-7 5V7H7v10h2z"></path>
+              </svg>
+            </button>
+
             <button onClick={togglePlayPause}>
               {!isPlaying ? (
-                <svg viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="size-10 hover:text-[#f83a47]">
                   <path
                     fillRule="evenodd"
                     d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm14.024-.983a1.125 1.125 0 0 1 0 1.966l-5.603 3.113A1.125 1.125 0 0 1 9 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113Z"
@@ -167,7 +195,7 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
+                  className="size-10 hover:text-[#f83a47]"
                 >
                   <path
                     strokeLinecap="round"
@@ -178,9 +206,9 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
               )}
             </button>
 
-            <button onClick={playNext}>
-              <svg viewBox="0 0 24 24" fill="currentColor" className="size-7">
-                <path d="M7 7v10l7-5zm9 10V7h-2v10z"></path>
+            <button onClick={playNext} className="p-1 rounded-full hover:text-[#f83a47] transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+              <path d="M7 7v10l7-5zm9 10V7h-2v10z"></path>
               </svg>
             </button>
           </div>
