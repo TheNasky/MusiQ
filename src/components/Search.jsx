@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
 import SearchList from './SearchList';
-import { SearchIcon } from './icons';
+import { SearchIcon } from './Icons';
 import axios from 'axios';
 
 export default function Search({ code }) {

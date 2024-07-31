@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { AddIcon } from './icons';
+import { AddIcon } from './Icons';
 import { getHighQualityThumbnail } from '../utils/thumbnails';
 
 export default function SearchList( { filteredSongs, code } ) {
