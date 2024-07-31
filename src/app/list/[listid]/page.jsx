@@ -18,7 +18,10 @@ export default function ListPage() {
   const [playlist, setPlaylist] = useState(null);
 
   useEffect(() => {
-    socket = io("https://musiq-backend.vercel.app");
+    socket = io("https://musiq-backend.vercel.app", {
+      transports: ['websocket', 'polling'],
+      path: '/api/socketio',
+    });
 
     socket.on("connect", () => {
       console.log("Connected to server");
