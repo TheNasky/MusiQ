@@ -10,7 +10,7 @@ const navLinks = [
    },
    {
       title: "Mi lista",
-      path: "/mylist",
+      path: "/",
    },
 ];
 

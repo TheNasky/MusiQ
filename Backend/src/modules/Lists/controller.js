@@ -3,6 +3,7 @@ import { resSuccess, resFail } from "../../config/utils/response.js";
 import { v4 as uuidv4 } from "uuid";
 import argon2 from "argon2";
 import { io } from "../../app.js";
+import { generateUniqueCode } from "../../config/utils/codeGenerator.js";
 
 // Create a new list
 export const createList = async (req, res) => {
@@ -40,7 +41,7 @@ export const joinList = async (req, res) => {
     } else {
       list.users.push(username);
       await list.save();
-      return resSuccess(res, 200, "Joined list successfully", { list });
+      return resSuccess(res, 200, "Joined list successfully", { code });
     }
   } catch (error) {
     return resFail(res, 500, "Failed to join list", error.message);
@@ -255,5 +256,25 @@ export const getHistory = async (req, res) => {
     return resSuccess(res, 200, "History retrieved successfully", { history: list.history });
   } catch (error) {
     return resFail(res, 500, "Failed to retrieve history", error.message);
+  }
+};
+
+export const accessList = async (req, res) => {
+  const { name, adminPassword } = req.body;
+
+  try {
+    const list = await ListModel.findOne({ name });
+    if (!list) {
+      return resFail(res, 404, "List not found");
+    }
+
+    const isPasswordValid = await argon2.verify(list.adminPassword, adminPassword);
+    if (!isPasswordValid) {
+      return resFail(res, 403, "Invalid admin password");
+    }
+
+    return resSuccess(res, 200, "Access granted", { code: list.code });
+  } catch (error) {
+    return resFail(res, 500, "Failed to access list", error.message);
   }
 };
