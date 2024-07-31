@@ -24,7 +24,7 @@ export default function List({ playlist }) {
     if (!adminPassword) return;
 
     try {
-      const response = await axios.post('http://localhost:3001/api/list/playSpecific', {
+      const response = await axios.post('https://musiq-backend.vercel.app/api/list/playSpecific', {
         code: playlist.code,
         songId,
         adminPassword,
@@ -46,7 +46,7 @@ export default function List({ playlist }) {
     if (!adminPassword) return;
 
     try {
-      const response = await fetch('http://localhost:3001/api/list/deleteSong', {
+      const response = await fetch('https://musiq-backend.vercel.app/api/list/deleteSong', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

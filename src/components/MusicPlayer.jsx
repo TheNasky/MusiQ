@@ -33,7 +33,7 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
       if (!adminPassword) return;
 
       try {
-        const response = await axios.post("http://localhost:3001/api/list/playNext", {
+        const response = await axios.post("https://musiq-backend.vercel.app/api/list/playNext", {
           code: playlist.code,
           adminPassword,
         });
@@ -55,7 +55,7 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
       if (!adminPassword) return;
 
       try {
-        const response = await axios.post("http://localhost:3001/api/list/playPrevious", {
+        const response = await axios.post("https://musiq-backend.vercel.app/api/list/playPrevious", {
           code: playlist.code,
           adminPassword,
         });

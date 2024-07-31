@@ -36,7 +36,7 @@ export default function Home() {
       isPrivate: formData.get("estado") === "privado",
     };
     try {
-      const response = await axios.post("http://localhost:3001/api/list/create", listData);
+      const response = await axios.post("https://musiq-backend.vercel.app/api/list/create", listData);
       if (response.data.success) {
         const code = response.data.payload.code;
         alert(`List created successfully! Your code is: ${code}`);
@@ -55,7 +55,7 @@ export default function Home() {
       username: "Guest", // You might want to add a username field to the form
     };
     try {
-      const response = await axios.post("http://localhost:3001/api/list/join", joinData);
+      const response = await axios.post("https://musiq-backend.vercel.app/api/list/join", joinData);
       if (response.data.success) {
         router.push(`/list/${joinData.code}`);
       }
@@ -72,7 +72,7 @@ export default function Home() {
       adminPassword: formData.get("contraseña"),
     };
     try {
-      const response = await axios.post("http://localhost:3001/api/list/access", listData);
+      const response = await axios.post("https://musiq-backend.vercel.app/api/list/access", listData);
       if (response.data.success) {
         router.push(`/list/${response.data.payload.code}`);
       }

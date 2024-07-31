@@ -18,7 +18,7 @@ export default function ListPage() {
   const [playlist, setPlaylist] = useState(null);
 
   useEffect(() => {
-    socket = io("http://localhost:3001");
+    socket = io("https://musiq-backend.vercel.app");
 
     socket.on("connect", () => {
       console.log("Connected to server");
@@ -39,7 +39,7 @@ export default function ListPage() {
 
   const fetchPlaylist = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/list/${code}`, {
+      const response = await axios.get(`https://musiq-backend.vercel.app/api/list/${code}`, {
         headers: {
           "Content-Type": "application/json",
         },

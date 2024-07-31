@@ -20,7 +20,7 @@ export default function SearchList( { filteredSongs, code } ) {
         songData.thumbnail = song.thumbnail;
       }
 
-      const response = await fetch('http://localhost:3001/api/list/addSong', {
+      const response = await fetch('https://musiq-backend.vercel.app/api/list/addSong', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
