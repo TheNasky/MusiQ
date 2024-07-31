@@ -6,7 +6,6 @@ import { addLogger, logger } from "./config/logger.js";
 import cors from "cors";
 import apicache from "apicache"; // Import apicache
 
-
 import router from "./modules/Lists/router.js";
 
 connectDb();
@@ -20,9 +19,9 @@ import http from "http";
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"]
-  }
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
 });
 
 io.on("connection", (socket) => {
@@ -54,16 +53,15 @@ app.use(compression({})); // Enable response compression
 // Cors //
 app.use(
   cors({
-    origin: 'http://localhost:3000', // Allow only these origins to access the resources
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allow these HTTP methods
-    credentials: true, // Allow credentials to be included in the requests
+    origin: "*", // Allow all origins
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
   })
 );
-//app.use(cors()); // Allow all origins
 
 // // Caching //
 // const cache = apicache.middleware;
-// app.use(cache('6 hours')); 
+// app.use(cache('6 hours'));
 
 // Routers //
 app.use("/api/list/", router);
@@ -84,3 +82,5 @@ app.use((err, req, res, next) => {
   logger.error(`${err.stack}`);
   res.status(500).json({ error: "Internal Server Error (Catch all   )" });
 });
+
+export default app;
