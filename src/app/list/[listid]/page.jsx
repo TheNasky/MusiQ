@@ -20,12 +20,15 @@ export default function ListPage() {
   useEffect(() => {
     socket = io("https://musiq-backend.vercel.app", {
       transports: ['websocket', 'polling'],
-      path: '/api/socketio',
     });
 
     socket.on("connect", () => {
       console.log("Connected to server");
       socket.emit("joinRoom", code);
+    });
+
+    socket.on("connect_error", (error) => {
+      console.error("Connection error:", error);
     });
 
     socket.on("playlistUpdated", (updatedPlaylist) => {
@@ -35,6 +38,7 @@ export default function ListPage() {
 
     return () => {
       socket.off("connect");
+      socket.off("connect_error");
       socket.off("playlistUpdated");
       socket.disconnect();
     };

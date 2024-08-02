@@ -138,8 +138,8 @@ const CustomAudioPlayer = ({ playlist, onSongChange }) => {
 
       <div className="w-2/3 rounded grid grid-rows-5">
       <div className="flex flex-col">
-        <h3 className="text-[2.2rem]"><div className="line-clamp-2">{currentSong.title}</div></h3>
-        <p className="text-[1.2rem] my-1 text-gray-300">{currentSong.artist}</p>
+        <h3 className="lg:text-[1.2rem] xlg:text-[2.2rem]"><div className="line-clamp-2">{currentSong.title}</div></h3>
+        <p className="text-[1rem] my-1 text-gray-300">{currentSong.artist}</p>
         <div className="w-full text-center my-2">
           <YouTube
             videoId={currentSong.url.split("v=")[1]}
